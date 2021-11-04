@@ -12,8 +12,8 @@ The plan is to try the face-recognition library in Python because of its simplic
 The command line tool will first be implemented for Linux-based systems, with possible extension for Windows in the future.
 
 ### TODO
-1) Obtain a dataset of photos with faces and photos with no faces, in multiple directories and subdirectories - a few hundred photos, all uniquelly and logically named.
-2) Set up the environment and get to know the face-recognition library.
+1) Obtain a dataset of photos with faces and photos with no faces, in multiple directories and subdirectories - a few hundred photos, all uniquelly and logically named - IN PROGRESS
+2) Set up the environment and get to know the face-recognition library - IN PROGRESS
 3) Recursively loop through the folders, find the images with faces, extract the faces and note where they came from, then save the faces as separate files in the index directory.
 4) Perform image classification, group faces of the same person together -> save them in the same folder. 
 5) Deploy the program as a command line tool.
