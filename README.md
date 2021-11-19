@@ -12,13 +12,12 @@ The plan is to try the face-recognition library in Python because of its simplic
 The command line tool will first be implemented for Linux-based systems, with possible extension for Windows in the future.
 
 ### TODO
-1) Obtain a dataset of photos with faces and photos with no faces, in multiple directories and subdirectories - a few hundred photos, all uniquelly and logically named - IN PROGRESS
-  - Online datasets are not exactly what we're looking for, there are usually already extraced faces or random people that you can't put in groups. Currently trying to build our own dataset, but still looking at online options.
-  - Some options: https://www.kaggle.com/atulanandjha/lfwpeople?select=pairs.txt , https://www.kaggle.com/saidakbarp/face-recognition-part-1/notebook
-2) Set up the environment and get to know the face-recognition library - IN PROGRESS
-3) Recursively loop through the folders, find the images with faces, extract the faces and note where they came from, then save the faces as separate files in the index directory.
-4) Perform image classification, group faces of the same person together -> save them in the same folder. 
-5) Deploy the program as a command line tool.
+1) Obtain a dataset of photos with faces and photos with no faces, in multiple directories and subdirectories - a few hunder photos - DONE
+  * After a thorough search for datasets on the internet we decided to create our own dataset of our own vacation photos.
+3) Set up the environment and get to know the face-recognition library - IN PROGRESS
+4) Recursively loop through the folders, find the images with faces, extract the faces and note where they came from, then save the faces as separate files in the index directory.
+5) Perform image classification, group faces of the same person together -> save them in the same folder. 
+6) Deploy the program as a command line tool.
 
 ### Deployment
 
