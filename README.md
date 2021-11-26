@@ -11,6 +11,26 @@ We first do some reasearch on the existing libraries and solutions to decide abo
 The plan is to try the face-recognition library in Python because of its simplicity and if it doesn’t perform well or we need some more functionalities that it doesn’t offer, we switch to FaceNet.
 The command line tool will first be implemented for Linux-based systems, with possible extension for Windows in the future.
 
+### Installation of face_recognition library
+Installation requirements:
+
+    Python 3.3+ or Python 2.7
+    macOS or Linux (Windows not officially supported, but might work)
+
+Installing on Mac or Linux:
+
+First, make sure you have dlib already installed with Python bindings:
+
+    https://gist.github.com/ageitgey/629d75c1baac34dfa5ca2a1928a7aeaf
+
+Then, install this module from pypi using pip3 (or pip2 for Python 2):
+
+pip3 install face_recognition
+
+If you are having trouble with installation, you can also try out a
+pre-configured VM: https://medium.com/@ageitgey/try-deep-learning-in-python-now-with-a-fully-pre-configured-vm-1d97d4c3e9b
+
+
 ### TODO
 1) Obtain a dataset of photos with faces and photos with no faces, in multiple directories and subdirectories - a few hunder photos - DONE
   * After a thorough search for datasets on the internet we decided to create our own dataset of our own vacation photos.
