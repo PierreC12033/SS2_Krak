@@ -124,6 +124,7 @@ for subdir, dirs, files in os.walk(rootdir):
                 # Encoding of the Face
                 abort = False
                 my_face_encoding_array = face_recognition.face_encodings(face_image)
+                # resilience to error
                 if len(my_face_encoding_array)!=0:
                     my_face_encoding=my_face_encoding_array[0]
                 else:
