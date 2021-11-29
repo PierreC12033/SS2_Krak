@@ -40,20 +40,18 @@ def createNewPersonDirectory(pthToSortedFaces, newPersonNumber, pil_image, nameO
     newPersonNumber += 1
 
 
-rootdir = '/home/pierrec/Desktop/test_img_reco/IDK'
+rootdir = '/home/pierrec/Desktop/test_img_reco/Big_test/Photos/Christmas'
 
 pth = os.path.dirname(os.path.abspath(__file__)) + "/Photos_copy"
 pthToSortedFaces = os.path.dirname(os.path.abspath(__file__)) + "/Faces"
 
 if os.path.exists(pthToSortedFaces):
-    newPersonNumber = len(os.listdir(pthToSortedFaces))+1
+    newPersonNumber = len(os.listdir(pthToSortedFaces)) + 1
 else:
     newPersonNumber = 1
 # Create the directory for faces if not already created
 if not (os.path.isdir(pthToSortedFaces)):
     os.mkdir(pthToSortedFaces)
-
-
 
 # Scan through the desired file system and analysed the faces if they are not already analysed
 for subdir, dirs, files in os.walk(rootdir):
@@ -124,60 +122,74 @@ for subdir, dirs, files in os.walk(rootdir):
                 nameOfNewFile = '/' + file[:-4] + '_' + str(j) + str(i)
                 pil_image.save(pth + subdir[len(rootdir):] + nameOfNewFile + ".png")  # save the face
                 # Encoding of the Face
-                my_face_encoding = face_recognition.face_encodings(face_image)[0]
+                abort = False
+                my_face_encoding_array = face_recognition.face_encodings(face_image)
+                if len(my_face_encoding_array)!=0:
+                    my_face_encoding=my_face_encoding_array[0]
+                else:
+                    print("ERROR FACE DETECTED BUT NO ENCODING POSSIBLE")
+                    print(pth + subdir[len(rootdir):] + nameOfNewFile + ".png")
+                    abort = True
                 # # print(len(face_recognition.face_encodings(face_image, [[0, len(face_image), 0, len(face_image)]])))
                 # Check similarity with existing faces
                 # First check if there are any stored faces :
-                if len(os.listdir(pthToSortedFaces)) == 0:
-                    # If no just create one folder with the first face in it
-                    # print("There is no faces yet in the directory")
-                    os.mkdir(pthToSortedFaces + '/person' + str(newPersonNumber))
-                    # Store the img
-                    pil_image.save(pthToSortedFaces + '/person' + str(newPersonNumber) + nameOfNewFile + ".png")  # save the face
-                    # Store the name of the img in the person txt file
-                    pTxt = open(pthToSortedFaces + '/person' + str(newPersonNumber) + "/person" + str(newPersonNumber) + ".txt", "a")
-                    pTxt.write(file[:-4] + '_%d%d.png\n' % (j, i))
-                    pTxt.close()
-                    # Store the path of the original picture in corresponding file
-                    pTxt = open(pthToSortedFaces + '/person' + str(newPersonNumber) + nameOfNewFile + ".txt", "w")
-                    pTxt.write(os.path.join(subdir, file))
-                    pTxt.close()
-                    # Store the encoding
-                    numpy.savetxt(pthToSortedFaces + '/person' + str(newPersonNumber) + nameOfNewFile + ".enc", my_face_encoding)
-                    # increment for next person
-                    newPersonNumber += 1
-                else:
-                    dirsfc = os.listdir(pthToSortedFaces)
-                    found = False
-                    y = 0
-                    # print("dirsfc")
-                    # print(dirsfc)
-                    while not found and y != len(dirsfc):
-                        # I check the next folder for recognition If it is recognized I am happy
-                        #  img_reco/SS2_Krak-main/Faces /    person1      /     person1     .txt
-                        pTxt = open(pthToSortedFaces + '/' + dirsfc[y] + '/' + dirsfc[y] + ".txt", "r")
-                        readFacesFile = pTxt.readlines()
+                if not abort:
+                    if len(os.listdir(pthToSortedFaces)) == 0:
+                        # If no just create one folder with the first face in it
+                        # print("There is no faces yet in the directory")
+                        os.mkdir(pthToSortedFaces + '/person' + str(newPersonNumber))
+                        # Store the img
+                        pil_image.save(pthToSortedFaces + '/person' + str(newPersonNumber) + nameOfNewFile + ".png")  # save the face
+                        # Store the name of the img in the person txt file
+                        pTxt = open(pthToSortedFaces + '/person' + str(newPersonNumber) + "/person" + str(newPersonNumber) + ".txt", "a")
+                        pTxt.write(file[:-4] + '_%d%d.png\n' % (j, i))
                         pTxt.close()
-                        loadedListOfEncoded = []
-                        for f2 in readFacesFile:
-                            # print(pthToSortedFaces + '/' + dirsfc[y] + '/' + f2[:-1])
-                            loadedListOfEncoded.append(numpy.loadtxt(pthToSortedFaces + '/' + dirsfc[y] + '/' + f2[:-4] + "enc"))
-
-                        # try to match faces
-                        # print(face_recognition.face_distance(loadedListOfEncoded, my_face_encoding))
-                        # # print(str(top)+" "+str(right)+" "+str(bottom)+" "+str(left))
-                        # print(my_face_encoding)
-                        # print(face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.3))
-                        if face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.5)[0]:
-                            found = True
-                            y -= 1
-                        y += 1
-                    if found:
-                        # someone look similar to my face, I will get into his directory
-                        addFaceToDirectory(pthToSortedFaces, '/' + dirsfc[y], pil_image, nameOfNewFile, os.path.join(subdir, file), my_face_encoding)
-                    else:
-                        createNewPersonDirectory(pthToSortedFaces, newPersonNumber, pil_image, nameOfNewFile, os.path.join(subdir, file), my_face_encoding)
+                        # Store the path of the original picture in corresponding file
+                        pTxt = open(pthToSortedFaces + '/person' + str(newPersonNumber) + nameOfNewFile + ".txt", "w")
+                        pTxt.write(os.path.join(subdir, file))
+                        pTxt.close()
+                        # Store the encoding
+                        numpy.savetxt(pthToSortedFaces + '/person' + str(newPersonNumber) + nameOfNewFile + ".enc", my_face_encoding)
+                        # increment for next person
                         newPersonNumber += 1
+                    else:
+                        dirsfc = os.listdir(pthToSortedFaces)
+                        matchesCount = []
+                        matchesDir = []
+                        y = 0
+                        # print("dirsfc")
+                        # print(dirsfc)
+                        while y != len(dirsfc):
+                            # I check the next folder for recognition If it is recognized I am happy
+                            #  img_reco/SS2_Krak-main/Faces /    person1      /     person1     .txt
+                            pTxt = open(pthToSortedFaces + '/' + dirsfc[y] + '/' + dirsfc[y] + ".txt", "r")
+                            readFacesFile = pTxt.readlines()
+                            pTxt.close()
+                            loadedListOfEncoded = []
+                            for f2 in readFacesFile:
+                                # print(pthToSortedFaces + '/' + dirsfc[y] + '/' + f2[:-1])
+                                loadedListOfEncoded.append(numpy.loadtxt(pthToSortedFaces + '/' + dirsfc[y] + '/' + f2[:-4] + "enc"))
+
+                            # try to match faces
+                            # print(face_recognition.face_distance(loadedListOfEncoded, my_face_encoding))
+                            # # print(str(top)+" "+str(right)+" "+str(bottom)+" "+str(left))
+                            # print(my_face_encoding)
+                            # print(face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.3))
+
+                            result = face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.6)
+                            matchesCount.append(result.count(True))
+                            matchesDir.append(dirsfc[y])
+                            y += 1
+                        if not max(matchesCount) == 0:
+                            # someone look similar to my face, I will get into his directory
+                            addFaceToDirectory(pthToSortedFaces, '/' + matchesDir[matchesCount.index(max(matchesCount))], pil_image, nameOfNewFile, os.path.join(subdir, file), my_face_encoding)
+                        else:
+                            createNewPersonDirectory(pthToSortedFaces, newPersonNumber, pil_image, nameOfNewFile, os.path.join(subdir, file), my_face_encoding)
+                            newPersonNumber += 1
+                        my_face_encoding = null
+                        my_face_encoding_array = null
+                    i = i + 1
+                else:
                     my_face_encoding = null
-                i = i + 1
+                    my_face_encoding_array = null
             j = j + 1
