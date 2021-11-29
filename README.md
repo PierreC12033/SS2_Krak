@@ -36,8 +36,8 @@ pre-configured VM: https://medium.com/@ageitgey/try-deep-learning-in-python-now-
   * After a thorough search for datasets on the internet we decided to create our own dataset of our own vacation photos.
 3) Set up the environment and get to know the face-recognition library - DONE
 4) Recursively loop through the folders, find the images with faces, extract the faces - DONE
-5) Save information about the location of extracted faces in the original photos - IN PROGRESS
-6) Perform image classification, group faces of the same person together -> save them in the same folder. 
+5) Save information about the location of extracted faces in the original photos - DONE
+6) Perform image classification, group faces of the same person together -> save them in the same folder - TO OPTIMIZE
 8) Deploy the program as a command line tool.
 
 ### Deployment
