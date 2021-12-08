@@ -38,7 +38,7 @@ pre-configured VM: https://medium.com/@ageitgey/try-deep-learning-in-python-now-
 4) Recursively loop through the folders, find the images with faces, extract the faces - DONE
 5) Save information about the location of extracted faces in the original photos - DONE
 6) Perform image classification, group faces of the same person together -> save them in the same folder - TO OPTIMIZE
-8) Deploy the program as a command line tool.
+8) Deploy the program as a command line tool. -DONE - TO PERFECT
 
 ### Deployment
 

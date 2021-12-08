@@ -3,7 +3,8 @@ import numpy
 from PIL import Image
 import os
 from keyring.backends import null
-
+import sys
+import shutil
 
 def addFaceToDirectory(pthToSortedFaces, directoryName, pil_image, nameOfNewFile, originalPath, my_face_encoding):
     # Store the img
@@ -18,7 +19,6 @@ def addFaceToDirectory(pthToSortedFaces, directoryName, pil_image, nameOfNewFile
     pTxt.close()
     # Store the encoding
     numpy.savetxt(pthToSortedFaces + directoryName + nameOfNewFile + ".enc", my_face_encoding)
-
 
 def createNewPersonDirectory(pthToSortedFaces, newPersonNumber, pil_image, nameOfNewFile, originalPath, my_face_encoding):
     # If no just create one folder with the first face in it
@@ -39,8 +39,32 @@ def createNewPersonDirectory(pthToSortedFaces, newPersonNumber, pil_image, nameO
     # increment for next person
     newPersonNumber += 1
 
+args=sys.argv
+print(args)
 
-rootdir = '/home/pierrec/Desktop/test_img_reco/Big_test/Photos/Christmas'
+for arg in args:
+    if (arg == "help" or arg=="-h" or "--h" or "-help" or "--help"):
+        print("Here is a description of the program")
+        exit(0)
+    if(arg =="version" or arg=="-v" or "--v" or "-version" or "--version"):
+        print("Version 0.1")
+
+if(len(args)!=1):
+    if args[1]==0 or args[1]=="0":
+        rootdir = '/home/pierrec/Desktop/test_img_reco/Big_test/Photos/Christmas'
+    else:
+        if(os.path.isdir(args[1])):
+            rootdir = args[1]
+        else:
+            print("ERROR PATH TO FOLDER INCORRECT!")
+            exit(2)
+    if(len(args)>1):
+        for arg in args[2:]:
+            if(arg=="reset"):
+                shutil.rmtree(os.path.dirname(os.path.abspath(__file__)) + "/Photos_copy")
+                shutil.rmtree(os.path.dirname(os.path.abspath(__file__)) + "/Faces")
+else:
+    rootdir = '/home/pierrec/Desktop/test_img_reco/Big_test/Photos/Christmas'
 
 pth = os.path.dirname(os.path.abspath(__file__)) + "/Photos_copy"
 pthToSortedFaces = os.path.dirname(os.path.abspath(__file__)) + "/Faces"
@@ -116,7 +140,6 @@ for subdir, dirs, files in os.walk(rootdir):
                     bottom = bottom + 25
                 if left - 25 > 0:
                     left = left - 25
-
                 face_image = image[top:bottom, left:right]
                 pil_image = Image.fromarray(face_image)
                 nameOfNewFile = '/' + file[:-4] + '_' + str(j) + str(i)
@@ -125,8 +148,8 @@ for subdir, dirs, files in os.walk(rootdir):
                 abort = False
                 my_face_encoding_array = face_recognition.face_encodings(face_image)
                 # resilience to error
-                if len(my_face_encoding_array)!=0:
-                    my_face_encoding=my_face_encoding_array[0]
+                if len(my_face_encoding_array) != 0:
+                    my_face_encoding = my_face_encoding_array[0]
                 else:
                     print("ERROR FACE DETECTED BUT NO ENCODING POSSIBLE")
                     print(pth + subdir[len(rootdir):] + nameOfNewFile + ".png")
@@ -170,18 +193,30 @@ for subdir, dirs, files in os.walk(rootdir):
                             for f2 in readFacesFile:
                                 # print(pthToSortedFaces + '/' + dirsfc[y] + '/' + f2[:-1])
                                 loadedListOfEncoded.append(numpy.loadtxt(pthToSortedFaces + '/' + dirsfc[y] + '/' + f2[:-4] + "enc"))
-
                             # try to match faces
                             # print(face_recognition.face_distance(loadedListOfEncoded, my_face_encoding))
                             # # print(str(top)+" "+str(right)+" "+str(bottom)+" "+str(left))
                             # print(my_face_encoding)
                             # print(face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.3))
-
-                            result = face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.6)
-                            matchesCount.append(result.count(True))
-                            matchesDir.append(dirsfc[y])
+                            averageDist = True
+                            average = 0.0
+                            if not averageDist:
+                                result = face_recognition.compare_faces(loadedListOfEncoded, my_face_encoding, 0.6)
+                                matchesCount.append(result.count(True))
+                                matchesDir.append(dirsfc[y])
+                            else:
+                                result = face_recognition.face_distance(loadedListOfEncoded, my_face_encoding)
+                                for r in result:
+                                    average += r
+                                average = average / len(result)
+                                if not average == 0:
+                                    average = 0.5 / average
+                                else:
+                                    average = 100
+                                matchesCount.append(average)
+                                matchesDir.append(dirsfc[y])
                             y += 1
-                        if not max(matchesCount) == 0:
+                        if max(matchesCount) >= 0.8:
                             # someone look similar to my face, I will get into his directory
                             addFaceToDirectory(pthToSortedFaces, '/' + matchesDir[matchesCount.index(max(matchesCount))], pil_image, nameOfNewFile, os.path.join(subdir, file), my_face_encoding)
                         else:
@@ -193,4 +228,7 @@ for subdir, dirs, files in os.walk(rootdir):
                 else:
                     my_face_encoding = null
                     my_face_encoding_array = null
+                print('*', end='')
             j = j + 1
+        print(':')
+    print('O')
