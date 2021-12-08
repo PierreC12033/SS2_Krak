@@ -60,7 +60,7 @@ if(len(args)!=1):
             exit(2)
     if(len(args)>1):
         for arg in args[2:]:
-            if(arg=="reset"):
+            if(arg=="reset" or arg=="-reset" or arg=="--reset"):
                 shutil.rmtree(os.path.dirname(os.path.abspath(__file__)) + "/Photos_copy")
                 shutil.rmtree(os.path.dirname(os.path.abspath(__file__)) + "/Faces")
 else:
