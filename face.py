@@ -43,10 +43,10 @@ args=sys.argv
 print(args)
 
 for arg in args:
-    if (arg == "help" or arg=="-h" or "--h" or "-help" or "--help"):
+    if (arg == "help" or arg=="-h" or arg=="--h" or arg=="-help" or arg=="--help"):
         print("Here is a description of the program")
         exit(0)
-    if(arg =="version" or arg=="-v" or "--v" or "-version" or "--version"):
+    if(arg =="version" or arg=="-v" or arg=="--v" or arg=="-version" or arg=="--version"):
         print("Version 0.1")
 
 if(len(args)!=1):
