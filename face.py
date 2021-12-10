@@ -48,6 +48,7 @@ for arg in args:
         exit(0)
     if(arg =="version" or arg=="-v" or arg=="--v" or arg=="-version" or arg=="--version"):
         print("Version 0.1")
+        exit(0)
 
 if(len(args)!=1):
     if args[1]==0 or args[1]=="0":
