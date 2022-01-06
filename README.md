@@ -21,9 +21,3 @@ Then, install this module from pypi using pip3 (or pip2 for Python 2):
 
 If you are having trouble with installation, you can also try out a
 pre-configured VM: https://medium.com/@ageitgey/try-deep-learning-in-python-now-with-a-fully-pre-configured-vm-1d97d4c3e9b
-
-### Deployment
-
-### User guide
-
-### Exemples and results
