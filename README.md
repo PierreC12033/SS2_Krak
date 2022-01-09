@@ -39,3 +39,4 @@ The program only works on .jpg images.
 
 During processing, every face detected will be displayed as '*', every file analysed as ':' , every folder scanned as 'O'.
 
+Each classified face is saved with its encoding and a text file with a path to the original image it came from. You can find all the classified images in the 'Faces' directory.
