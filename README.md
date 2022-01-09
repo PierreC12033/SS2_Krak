@@ -25,15 +25,15 @@ pre-configured VM: https://medium.com/@ageitgey/try-deep-learning-in-python-now-
 ### Usage
 Example usage:
 
-python face.py [full path to a folder with images] 
+    python face.py [full path to a folder with images] 
 
 You can also use the -help option to display a short helpful description of the program:
 
-python face.py -help
+    python face.py -help
 
 To delete all the presaved encodings and therefore process all the images again, you can use the -reset option:
 
-python face.py [full path to a folder with images] -reset
+    python face.py [full path to a folder with images] -reset
 
 The program only works on .jpg images.
 
