@@ -40,11 +40,17 @@ def createNewPersonDirectory(pthToSortedFaces, newPersonNumber, pil_image, nameO
     newPersonNumber += 1
 
 args=sys.argv
-print(args)
+#print(args)
 
 for arg in args:
     if (arg == "help" or arg=="-h" or arg=="--h" or arg=="-help" or arg=="--help"):
-        print("Here is a description of the program")
+        print("This program is designed to detect and classify faces from a file directory.\n"
+              "Please enter the path to the folder you want to scan as the first argument,\n"
+              "if you want to forget the previous analysed pictures please use the option reset\n"
+              "Every faces detected will be displayed as a *, every file analysed as a : , every folder scaned as a O\n"
+              "The program only accepts .jpg files for now (.jpeg doesn't work either)\n"
+              "so be sure that all your picture have this extention.\n"
+              "ie: python face.py /home/pierrec/Desktop/test_img_reco/Big_test/Photos/Christmas -reset\n")
         exit(0)
     if(arg =="version" or arg=="-v" or arg=="--v" or arg=="-version" or arg=="--version"):
         print("Version 0.1")
