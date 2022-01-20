@@ -39,4 +39,13 @@ The program only works on .jpg images.
 
 During processing, every face detected will be displayed as '*', every file analysed as ':' , every folder scanned as 'O'.
 
-Each classified face is saved with its encoding and a text file with a path to the original image it came from. You can find all the classified images in the 'Faces' directory.
+Each classified face is saved with its encoding and a text file with a path to the original image it came from. You can find all the classified images in the 'Faces' directory. A directory called 'Photos_copy' is also created and used to know which folder and pictures have already been analysed.
+
+### Known issues
+A warning can appear at the beginning of the execution, please ignore it, it won't affect the results.
+
+Sometimes the message :"ERROR FACE DETECTED BUT NO ENCODING POSSIBLE" can appear, this mean that a face has been detected but the program was unable to encode it. Resulting in the impossibility of the classification for this specific face. 
+
+If a picture is corrupted or empty it might interrupt the program.  
+
+### Possible future developments
