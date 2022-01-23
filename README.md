@@ -66,3 +66,8 @@ If a picture is corrupted or empty it might interrupt the program.
 ### Licensing
 
 GNU GPL 3.0
+
+### Development
+
+K. Langerholc: Creating a dataset, first test of the face_recogntion library, looping through the images and extracting the faces, creating the Photos_copy directory and saving the faces in it, deployment of the final asolution as a coomand line tool
+P. Camugli: Choosing the face_recognition library, creating the Faces directory and performing image classification of extracted faces, saving all the necessary information about the faces for the program to remember which photos have already been analyzed and making it so that they don't get analyzed again, optimization
