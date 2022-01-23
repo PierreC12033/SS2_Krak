@@ -34,12 +34,17 @@ You can also use the -help option to display a short helpful description of the 
 To delete all the presaved encodings and therefore process all the images again, you can use the -reset option:
 
     python face.py [full path to a folder with images] -reset
+    
 
-The program only works on .jpg images.
+The program detects and extracts faces from all images. The extracted faces are saved in the Photos_copy directory, which has the same structure as the original directory of the photos specified when starting the program. In each directory / subdirectory in the Photos_copy directory you can find the extracted faces, which were found in the images in the coorresponding directory / subdirectory in the original photos file structure. In the same place you can also find a .txt file, in which you can find the names of all the images found in the corresponding subdirectory in the original file structure. This is needed for the program to know, which photos have already been analyzed when rerunning the program, so that it doesn't analyze the same pictures again.
+
+The extracted faces are then analyzed and classified according to which person the face belongs to. You can find the classified faces in the Faces directory. For each new detected person, a new subdirectory is created, so each unique person has its own unique directory, called PersonX. In such a directory, for example /Faces/person1, you can find all the extracted faces of a certain person and also other files. For each image of a face, there is an encoding file with the exact same name as the image of the face, but with .enc extension. This file contains the encoding of this face, so that it doesn't have to be encoded again in the future and it also assures quick comparison with other face encodings, when trying to classifiy faces. For each face image, there is also a text file with the same name as the face image, but with a .txt extension. In this file you can find the path to the original image where this face was extracted from. 
+
+The Photos_copy and Faces directories can be found in the same directory where the program was run from.
+
+The program only works on .jpg images. After processing, the images are saved as .png files (because of the usage of a certain library), but let that not deceive you. All the images in the original directory of pictures you pass to the program, must have a .jpg extension.
 
 During processing, every face detected will be displayed as '*', every file analysed as ':' , every folder scanned as 'O'.
-
-Each classified face is saved with its encoding and a text file with a path to the original image it came from. You can find all the classified images in the 'Faces' directory. A directory called 'Photos_copy' is also created and used to know which folder and pictures have already been analysed.
 
 ### Known issues
 A warning can appear at the beginning of the execution, please ignore it, it won't affect the results.
@@ -49,3 +54,5 @@ Sometimes the message :"ERROR FACE DETECTED BUT NO ENCODING POSSIBLE" can appear
 If a picture is corrupted or empty it might interrupt the program.  
 
 ### Possible future developments
+
+### Versioning
