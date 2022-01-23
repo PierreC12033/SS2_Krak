@@ -62,6 +62,7 @@ If a picture is corrupted or empty it might interrupt the program.
 * Multithreading
 * Improvement of the classification accuracy by reclassification of already classified images
 * Improvement of the encoding of the faces, so that all of the faces can be encoded with no (or very rare) exceptions
+* Fix known issues
 
 ### Licensing
 
