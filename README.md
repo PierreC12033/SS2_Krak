@@ -62,6 +62,8 @@ If a picture is corrupted or empty it might interrupt the program.
 * Multithreading
 * Improvement of the classification accuracy by reclassification of already classified images
 * Improvement of the encoding of the faces, so that all of the faces can be encoded with no (or very rare) exceptions
+    * The error might come from the fact that once the face is cropped the library is not able to detect the face without enough context
+    * We tried to add more context (bigger cropped picture of the face) but it didn't solve all the issue
 * Fix known issues
 
 ### Licensing
