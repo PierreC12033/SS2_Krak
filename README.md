@@ -54,5 +54,6 @@ Sometimes the message :"ERROR FACE DETECTED BUT NO ENCODING POSSIBLE" can appear
 If a picture is corrupted or empty it might interrupt the program.  
 
 ### Possible future developments
-
-### Versioning
+* Multithreading
+* Improvement of the classification accuracy by reclassification of already classified images
+* Improvement of the encoding of the faces, so that all of the faces can be encoded with no (or very rare) exceptions
