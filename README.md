@@ -1,7 +1,12 @@
 # SS2_Krak Facial Recognition
 
 ## Goals
-Create an offline solution that scans through images to detect faces and classify them into corresponding folders of detected individuals.
+Design and implement a command line tool that:
+* browses through a collection of photos in the filesystem (multiple directories, recursively),
+* extract face images from the original photos and stores them in an index directory as separate files,
+* groups faces of the same person together,
+* with each face it stores information about what photo it came from.
+
 
 ### Installation of face_recognition library
 Installation requirements:
@@ -57,3 +62,7 @@ If a picture is corrupted or empty it might interrupt the program.
 * Multithreading
 * Improvement of the classification accuracy by reclassification of already classified images
 * Improvement of the encoding of the faces, so that all of the faces can be encoded with no (or very rare) exceptions
+
+### Licensing
+
+GNU GPL 3.0
